@@ -9,7 +9,7 @@ import os
 import asyncio
 
 
-bot = Bot(token= '5722882971:AAGY9gu6FF9HZFIUVEheS4PzR_wdl_mTi8o')
+bot ddseferfge5722882971:AAGYxdacv
 dp = Dispatcher(bot)
 
 rozklad_for_day = {}
