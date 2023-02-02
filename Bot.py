@@ -85,12 +85,14 @@ async def rjomba(message: types.Message):
 
 @dp.message_handler(commands=['l'])
 async def Yebuddy13(message: types.Message):
+
+    asyncio.create_task(Yebuddy())
+
+async def Yebuddy():
     x = 0
     for i in pochatok_paru_P:
-        asyncio.create_task(Yebuddy(x))
+        aioschedule.every().day.at(pochatok_paru_P[x]).do(Yebuddy_1,x)
         x += 1
-async def Yebuddy(x):
-    aioschedule.every().monday.at(pochatok_paru_P[x]).do(Yebuddy_1,x)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
