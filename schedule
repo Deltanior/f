@@ -1,0 +1,57 @@
+import aioschedule
+import asyncio
+
+
+
+days = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П\'ятниця', 'Субота', 'Неділя']
+rozklad = {'Понеділок':{1: ['1', 'Америка', '15:01',
+                            'https://zoom.us/j/96695843078?pwd=RStrMkxHNUsvOG9tOG5BWWkrWnU0Zz09#success'],
+                        2: ['2', 'Історія', '17:26',
+               'https://zoom.us/j/96695843078?pwd=RStrMkxHNUsvOG9tOG5BWWkrWnU0Zz09#success']},
+            'П\'ятниця':{1: ['1', 'Алгебра', '20:30',
+                            'https://zoom.us/j/96695843078?pwd=RStrMkxHNUsvOG9tOG5BWWkrWnU0Zz09#success'],
+                        2: ['2', 'Україна', '20:31',
+               'https://zoom.us/j/96695843078?pwd=RStrMkxHNUsvOG9tOG5BWWkrWnU0Zz09#success']},
+           'Середа': {1: ['1', 'Фізика', '21:48',
+                             'https://zoom.us/j/96695843078?pwd=RStrMkxHNUsvOG9tOG5BWWkrWnU0Zz09#success'],
+                         2: ['2', 'Англіська', '21:49',
+                             'https://zoom.us/j/96695843078?pwd=RStrMkxHNUsvOG9tOG5BWWkrWnU0Zz09#success']}
+           }
+
+async def main():
+    aioschedule.every(2).weeks.do(la)
+    print('1')
+    while True:
+        await aioschedule.run_pending()
+        await asyncio.sleep(1)
+async def la():
+    print('2')
+    aioschedule.every().monday.at('15:01').do(vidparvka,0)
+    aioschedule.every().tuesday.at('15:01').do(vidparvka,1)
+    aioschedule.every().wednesday.at('15:01').do(vidparvka,2)
+    aioschedule.every().thursday.at('15:01').do(vidparvka,3)
+    aioschedule.every().friday.at('15:01').do(vidparvka,4)
+    aioschedule.every().saturday.at('15:01').do(vidparvka,5)
+    aioschedule.every().sunday.at('15:01').do(vidparvka,6)
+    while True:
+        await aioschedule.run_pending()
+        await asyncio.sleep(1)
+async def vidparvka(y = 0,x = 0):
+    for i in rozklad[days[y]]:
+        x += 1
+        aioschedule.every().day.at(rozklad[days[y]][x][2]).do(send_message,x,y)
+async def send_message(x,y):
+    print(rozklad[days[y]][x])
+
+
+
+
+
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(main())
+    except KeyboardInterrupt:
+        pass
+    finally:
+        loop.close()
