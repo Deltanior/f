@@ -6,10 +6,7 @@ import sqlite3
 import aioschedule
 from aiogram import types, Bot
 from aiogram.dispatcher import Dispatcher
-from aiogram.utils import executor
-
-
-bot = Bot(token='5722882971:AAGY9gu6FF9HZFIUVEheS4PzR_wdl_mTi8o')
+from aiogram.utils importtor
 dp = Dispatcher(bot)
 
 rk = [0]
